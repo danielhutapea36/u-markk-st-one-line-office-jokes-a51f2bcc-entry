@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """One-Line Office Jokes entry.
 
-Writes one original one-line joke about office life to /output/entry.txt.
+Writes one original one-line joke about office life to entry.txt in the
+harness output directory ($MAKEFUN_OUTPUT_DIR, default /output).
 
 The joke is a fixed string: no randomness, no clock, no network, no
-environment reads. Every run writes exactly the same bytes, so the
-output is byte-identical across runs by construction.
+environment reads beyond the output directory. Every run writes exactly
+the same bytes, so the output is byte-identical across runs by construction.
 """
 
 import os
@@ -16,7 +17,9 @@ LINE = (
     "only one of us with a work-life balance."
 )
 
-OUTPUT_PATH = "/output/entry.txt"
+OUTPUT_PATH = os.path.join(
+    os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"), "entry.txt"
+)
 
 # The sealed gate accepts UTF-8 text of 1 to 199 characters, on one line.
 MIN_CHARS = 1
